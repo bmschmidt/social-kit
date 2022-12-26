@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { AP } from 'activitypub-core-types';
-import { domain, users } from '$lib/config';
+import { domain, users } from '../../../lib/config';
 
 /** @type {import('./$types').RequestHandler} */
 export function GET({ url }) {
@@ -9,9 +9,9 @@ export function GET({ url }) {
 		throw error(500, 'Malformed user');
 	}
 	const [user, userdomain] = resource.slice(5).split('@');
-	if (users.indexOf(user) === -1 || domain !== userdomain {
-    throw error(404, 'No such user on this host')
-  }
+	if (users.indexOf(user) === -1 || domain !== userdomain) {
+		throw error(404, 'No such user on this host');
+	}
 	const data = {
 		subject: `acct:${user}@${domain}`,
 		links: [
@@ -23,6 +23,6 @@ export function GET({ url }) {
 		]
 	};
 	const response = new Response(JSON.stringify(data));
-	response.headers['Content-Type'] = 'application/json';
+	response.headers.set('Content-Type', 'application/json');
 	return response;
 }
