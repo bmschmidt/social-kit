@@ -4,7 +4,7 @@ import { domain, users } from '../../../lib/config';
 
 /** @type {import('./$types').RequestHandler} */
 export function GET({ url }) {
-	const resource = url.queryParams.get('resource');
+	const resource = url.searchParams.get('resource');
 	if (!resource.startsWith('acct:')) {
 		throw error(500, 'Malformed user');
 	}
