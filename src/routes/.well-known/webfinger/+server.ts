@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import type { AP } from 'activitypub-core-types';
 import { domain, users } from '../../../lib/config';
 
@@ -22,7 +22,5 @@ export function GET({ url }) {
 			}
 		]
 	};
-	const response = new Response(JSON.stringify(data));
-	response.headers.set('Content-Type', 'application/json');
-	return response;
+	return json(data);
 }
